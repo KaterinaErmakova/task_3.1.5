@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Start page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            z-index: 100;
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .nav-link.active,
+        .nav-link.bg-primary {
+            background-color: #0d6efd !important;
+            color: white !important;
+        }
+
+        .welcome-card {
+            background-color: #fff;
+            border-radius: 0.3rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <form class="d-flex ms-auto" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-light" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+
+
+<div class="sidebar">
+    <ul class="nav flex-column px-3">
+        <li class="nav-item">
+            <a class="nav-link"
+               th:href="@{/}"
+               th:classappend="${#httpServletRequest.requestURI == '/'} ? ' bg-primary text-white'">
+                Главная страница
+            </a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyRole('USER', 'ADMIN')">
+            <a class="nav-link"
+               th:href="@{/user}"
+               th:classappend="${#httpServletRequest.requestURI == '/user'} ? ' bg-primary text-white'">
+                Страница пользователя
+            </a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link"
+               th:href="@{/admin}"
+               th:classappend="${#httpServletRequest.requestURI.startsWith('/admin')} ? ' bg-primary text-white'">
+                Страница администратора
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<main class="main-content">
+    <div class="welcome-card">
+        <h1 class="display-4">Welcome to our Application!</h1>
+        <hr class="my-4">
+        <form class="d-flex ms-auto" th:action="@{/login}" method="get">
+            <button class="btn btn-info text-white me-1" type="submit">Login</button>
+        </form>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

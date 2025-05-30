@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>All Users</h2>
+    <table id="usersTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th><th>Name</th><th>Surname</th><th>Age</th><th>Phone</th><th>Roles</th><th>Actions</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="editUserForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editId">
+                <input type="text" id="editName" class="form-control mb-2" placeholder="Name" required>
+                <input type="text" id="editSurname" class="form-control mb-2" placeholder="Surname" required>
+                <input type="number" id="editAge" class="form-control mb-2" placeholder="Age" required>
+                <input type="text" id="editPhone" class="form-control mb-2" placeholder="Phone" required>
+                <input type="password" id="editPassword" class="form-control mb-2" placeholder="Password" required>
+
+                <div id="editRolesContainer" class="form-check mt-2">
+                    <!-- Roles checkboxes will be rendered here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="addUserForm" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="addName" class="form-control mb-2" placeholder="Name" required>
+                <input type="text" id="addSurname" class="form-control mb-2" placeholder="Surname" required>
+                <input type="number" id="addAge" class="form-control mb-2" placeholder="Age" required>
+                <input type="text" id="addPhone" class="form-control mb-2" placeholder="Phone Number" required>
+                <input type="password" id="addPassword" class="form-control mb-2" placeholder="Password" required>
+
+                <div id="addRolesContainer" class="form-check mt-2">
+                    <!-- Roles checkboxes will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Кнопка открытия модалки -->
+<div class="mb-3">
+    <button class="btn btn-primary" onclick="openAddUserModal()">Add New User</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/admin.js"></script>
+<script src="/js/user.js"></script>
+</body>
+</html>
