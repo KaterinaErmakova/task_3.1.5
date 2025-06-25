@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.dto.UserDTO;
+import ru.kata.spring.boot_security.demo.mappers.DtoMapper;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import javax.transaction.Transactional;
@@ -21,11 +22,13 @@ public class UserServiceImpl implements UserService {
 
     private final RoleService roleService;
     private final UserDao userDao;
+    private final DtoMapper dtoMapper;
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, RoleService roleService) {
+    public UserServiceImpl(UserDao userDao, RoleService roleService, DtoMapper dtoMapper) {
         this.userDao = userDao;
         this.roleService = roleService;
+        this.dtoMapper = dtoMapper;
     }
 
 
@@ -46,7 +49,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(UserDTO userDTO) {
-        userDao.saveUser(userDTO.toEntity(roleService));
+        User user = dtoMapper.toEntity(userDTO);
+        userDao.saveUser(user);
 
     }
 

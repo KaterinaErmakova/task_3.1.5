@@ -30,23 +30,6 @@ public class UserDTO {
 
     public UserDTO(){}
 
-    public User toEntity(RoleService roleService) {
-        User user = new User();
-        user.setId(this.id);
-        user.setName(this.name);
-        user.setSurname(this.surname);
-        user.setAge(this.age);
-        user.setPhoneNumber(this.phoneNumber);
-        user.setPassword(this.password);
-        String rolesStr = this.roles.stream()
-                .map(RoleDto::getName)
-                .collect(Collectors.joining(","));
-        user.setRolesString(rolesStr);
-        user.setRoles(this.roles.stream()
-                .map(RoleDto::getName).map(roleService::findByName)
-                .collect(Collectors.toSet()));
-        return user;
-    }
 
     public Set<Role> toRolesSet(RoleService roleService){
 
